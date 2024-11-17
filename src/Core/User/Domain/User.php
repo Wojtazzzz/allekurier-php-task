@@ -30,10 +30,11 @@ class User
      */
     private string $email;
 
-    public function __construct(string $email)
+    public function __construct(string $email, bool $isActive = false)
     {
         $this->id = null;
         $this->email = $email;
+        $this->isActive = $isActive;
     }
 
     public function getEmail(): string
