@@ -20,6 +20,11 @@ class User
      */
     private ?int $id;
 
+	/**
+	 * @ORM\Column(type="boolean", options={"default": false})
+	 */
+	private string $isActive;
+
     /**
      * @ORM\Column(type="string", length=300, nullable=false)
      */
@@ -35,4 +40,14 @@ class User
     {
         return $this->email;
     }
+
+	public function getIsActive(): bool
+	{
+		return $this->isActive;
+	}
+
+	public function setIsActive(bool $isActive): void
+	{
+		$this->isActive = $isActive;
+	}
 }
