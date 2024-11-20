@@ -18,6 +18,6 @@ enum InvoiceStatus: string
 			}
 		}
 
-		throw new InvalidInvoiceStatusException("Status {$name} is invalid");
+		throw new InvalidInvoiceStatusException("Status {$name} jest niepoprawny");
 	}
 }
