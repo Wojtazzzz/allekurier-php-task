@@ -69,4 +69,15 @@ class DoctrineUserRepository implements UserRepositoryInterface
 			->getQuery()
 			->getOneOrNullResult();
 	}
+
+	public function getByActive(bool $isActive): array
+	{
+		return $this->entityManager->createQueryBuilder()
+			->select('u')
+			->from(User::class, 'u')
+			->where('u.isActive = :is_active')
+			->setParameter(':is_active', $isActive)
+			->getQuery()
+			->getResult();
+	}
 }
