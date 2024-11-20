@@ -22,9 +22,11 @@ class DoctrineInvoiceRepository implements InvoiceRepositoryInterface
             ->select('i')
             ->from(Invoice::class, 'i')
             ->where('i.status = :invoice_status')
-            ->setParameter(':invoice_status', $invoiceStatus->value)
 			->andWhere('i.amount > :amount')
-			->setParameter(':amount', $amount)
+			->setParameters([
+				':invoice_status' => $invoiceStatus->value,
+				':amount' => $amount,
+			])
             ->getQuery()
             ->getResult();
     }
