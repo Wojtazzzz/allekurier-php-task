@@ -7,6 +7,7 @@ use App\Core\Invoice\Application\Command\CreateInvoice\CreateInvoiceHandler;
 use App\Core\Invoice\Domain\Exception\InvoiceException;
 use App\Core\Invoice\Domain\Invoice;
 use App\Core\Invoice\Domain\Repository\InvoiceRepositoryInterface;
+use App\Core\User\Domain\Exception\UserIsInactiveException;
 use App\Core\User\Domain\Exception\UserNotFoundException;
 use App\Core\User\Domain\Repository\UserRepositoryInterface;
 use App\Core\User\Domain\User;
@@ -68,6 +69,20 @@ class CreateInvoiceHandlerTest extends TestCase
 
         $this->handler->__invoke((new CreateInvoiceCommand('test@test.pl', 12500)));
     }
+
+	public function test_handle_user_is_inactive(): void
+	{
+		$user = $this->createMock(User::class);
+		$user->method('getIsActive')->willReturn(false);
+
+		$this->expectException(UserIsInactiveException::class);
+
+		$this->userRepository->expects(self::once())
+			->method('getByEmail')
+			->willReturn($user);
+
+		$this->handler->__invoke((new CreateInvoiceCommand('test@test.pl', 12500)));
+	}
 
     public function test_handle_invoice_invalid_amount(): void
     {
