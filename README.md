@@ -17,6 +17,7 @@ bin/console app:user:create user@example.com
 
 - Kwota faktury musi być większa od 0
 - Kwoty zapisywane są w groszach
+- Faktury mogą być przypisywane tylko do aktywnych użytkowników
 
 # Do zrobienia
 
